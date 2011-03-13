@@ -2,7 +2,6 @@
 ==  Privatar - a privacy enhancing Gravatar proxy  ==
 =====================================================
 
-
 INTRODUCTION TO GRAVATAR
 
 Gravatar.com is a service where people can associate an image with their email
@@ -15,8 +14,6 @@ It also allows the service to be used with no sign up or prior configuration. It
 is simple, efficient and effective.
 
 PRIVACY ISSUES
-
-However there are some privacy issues.
 
 Although the email address is not revealed it can be checked. If you suspect a
 gravatar to belong to someone you can check the MD5 of their email address
@@ -44,20 +41,15 @@ and even if we did Gravatar will be much better at it.
 HOW IT WORKS
 
 Each site that wishes to use Privatar must register with us so that we can
-create the shared secret used to create Privatar urls. The site embeds
-these in their pages, the browser request them from us. We then decode the
-request and send it on to Gravatar, and then return the response to the browser.
+create the shared secret used to create Privatar urls. The site embeds these in
+their pages, the browser request them from us. We then decode the request and
+send it on to Gravatar, and then return the response to the browser.
 
 Using the shared secret we can ensure that the url generated is unique to the
 user and site - so you can't campare accounts accross sites. It also hides the
 MD5 hash of the email address so you can't confirm if an account belongs to a
 person.
 
-On the server side we still use MD5 hashing - so the underlying requirements for
-Privatar are the same as for Gravatar. It is also possible for a site to store
-or cache the privatar url for each user so that it need no e generated each
-time.
-
-
-
-
+We still only use MD5 hashing - so the underlying requirements for Privatar are
+the same as for Gravatar. It is also possible for a site to store or cache the
+privatar url for each user so that it need not be generated each time.
