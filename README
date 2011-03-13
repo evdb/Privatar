@@ -1,0 +1,63 @@
+=====================================================
+==  Privatar - a privacy enhancing Gravatar proxy  ==
+=====================================================
+
+
+INTRODUCTION TO GRAVATAR
+
+Gravatar.com is a service where people can associate an image with their email
+address. Other websites can then display this image by using an md5_hex of the
+email address to request it. This allows for easy opt-in display of images on
+blogs, forums, Q&A sites, etc, etc.
+
+The use of the MD5 hash prevents sites from having to reveal the email address.
+It also allows the service to be used with no sign up or prior configuration. It
+is simple, efficient and effective.
+
+PRIVACY ISSUES
+
+However there are some privacy issues.
+
+Although the email address is not revealed it can be checked. If you suspect a
+gravatar to belong to someone you can check the MD5 of their email address
+against the hash in the gravatar url to confirm if it is them. It is also
+possible to use the MD5 hash to link accounts on disparate sites as it will be
+the same.
+
+If you choose to host an image with Gravatar you implicitly sacrifice a bit of
+privacy as the image can be used to do the comparisons. The problem is that the
+gravatar url is generated regardless of having a Gravatar account so there is no
+way to opt out. A site can choose to start using Gravatars at any time.
+
+PRIVATAR AIMS
+
+We want to allow sites to use the Gravatar images but with no privacy
+implications. We will do this by providing a proxy service that is as simple to
+use as Gravatar but that makes the url generated unique to every site/user
+combination.
+
+We will not attempt to duplicate any Gravatar functionality or take any of their
+users - we merely proxy. To have an image served through Privatar you must set
+it up on Gravatar. Quite frankly handling images is hard and we want none of it,
+and even if we did Gravatar will be much better at it.
+
+HOW IT WORKS
+
+Each site that wishes to use Privatar must register with us so that we can
+create the shared secret used to create Privatar urls. The site embeds
+these in their pages, the browser request them from us. We then decode the
+request and send it on to Gravatar, and then return the response to the browser.
+
+Using the shared secret we can ensure that the url generated is unique to the
+user and site - so you can't campare accounts accross sites. It also hides the
+MD5 hash of the email address so you can't confirm if an account belongs to a
+person.
+
+On the server side we still use MD5 hashing - so the underlying requirements for
+Privatar are the same as for Gravatar. It is also possible for a site to store
+or cache the privatar url for each user so that it need no e generated each
+time.
+
+
+
+
