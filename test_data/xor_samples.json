@@ -1,0 +1,42 @@
+[
+    {
+        "key" : "0123456789abcdef0123456789abcdef",
+        "in"  : "00000000000000001111111111111111",
+        "out" : "0123456789abcdef1032547698badcfe"
+    },
+    {
+        "key" : "0123456789abcdef0123456789abcdef",
+        "in"  : "22222222222222223333333333333333",
+        "out" : "23016745ab89efcd32107654ba98fedc"
+    },
+    {
+        "key" : "0123456789abcdef0123456789abcdef",
+        "in"  : "44444444444444445555555555555555",
+        "out" : "45670123cdef89ab54761032dcfe98ba"
+    },
+    {
+        "key" : "0123456789abcdef0123456789abcdef",
+        "in"  : "66666666666666667777777777777777",
+        "out" : "67452301efcdab8976543210fedcba98"
+    },
+    {
+        "key" : "0123456789abcdef0123456789abcdef",
+        "in"  : "88888888888888889999999999999999",
+        "out" : "89abcdef0123456798badcfe10325476"
+    },
+    {
+        "key" : "0123456789abcdef0123456789abcdef",
+        "in"  : "aaaaaaaaaaaaaaaabbbbbbbbbbbbbbbb",
+        "out" : "ab89efcd23016745ba98fedc32107654"
+    },
+    {
+        "key" : "0123456789abcdef0123456789abcdef",
+        "in"  : "ccccccccccccccccdddddddddddddddd",
+        "out" : "cdef89ab45670123dcfe98ba54761032"
+    },
+    {
+        "key" : "0123456789abcdef0123456789abcdef",
+        "in"  : "eeeeeeeeeeeeeeeeffffffffffffffff",
+        "out" : "efcdab8967452301fedcba9876543210"
+    }
+]
