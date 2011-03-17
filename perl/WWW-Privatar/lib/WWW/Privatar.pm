@@ -3,9 +3,18 @@ package WWW::Privatar;
 use strict;
 use warnings;
 
+our $VERSION = '0.01';
+
 use Digest::MD5;
 use URI;
 use Carp;
+
+=head1 NAME
+
+WWW::Privatar - Generate urls for Privatar - the privacy enhancing Gravatar
+proxy
+
+=head1 METHODS
 
 =head2 new
 
