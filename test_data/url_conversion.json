@@ -1,0 +1,44 @@
+[
+    {
+        "msg" : "just email",
+        "args" : {               
+            "email" : "joe@example.com"
+        },
+        "urls" : {
+            "http" : "http://www.privatar.org/avatar/testsite-9643ed50-9fa2a8853d904a2067f4d4baa4a3cf66"
+        }
+    },
+    {
+        "msg" : "just email_md5",
+        "args" : {                   
+            "email_md5" : "f5b8fb60c6116331da07c65b96a8a1d1"
+        },
+        "urls" : {
+            "http" : "http://www.privatar.org/avatar/testsite-9643ed50-9fa2a8853d904a2067f4d4baa4a3cf66"
+        }
+    },
+    {
+        "msg" : "email_md5 and a salt",
+        "args" : {                         
+            "email_md5" : "f5b8fb60c6116331da07c65b96a8a1d1",
+            "salt" : "testsalt"
+        },
+        "urls" : {
+            "http" : "http://www.privatar.org/avatar/testsite-testsalt-43d96f02151add0ad675f9b5d064811a"
+        }
+    },
+    {
+        "msg" : "email_md5 and some query arguments",
+        "args" : {                                       
+            "email_md5" : "f5b8fb60c6116331da07c65b96a8a1d1",
+            "query" : {
+                "size"    : "60",
+                "default" : "http://example.com/default-60.png",
+                "foo"     : "pass through anything"
+            }
+        },
+        "urls" : {
+            "http" : "http://www.privatar.org/avatar/testsite-9643ed50-9fa2a8853d904a2067f4d4baa4a3cf66?foo=pass+through+anything&default=http%3A%2F%2Fexample.com%2Fdefault-60.png&size=60"
+        }
+    }
+]
