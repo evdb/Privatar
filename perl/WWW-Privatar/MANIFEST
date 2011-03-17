@@ -1,4 +1,4 @@
-Build.PL
+Makefile.PL
 lib/WWW/Privatar.pm
 MANIFEST
 t/00-load.t
