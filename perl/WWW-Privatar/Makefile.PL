@@ -1,17 +1,34 @@
 use strict;
 use warnings;
 
-use inc::Module::Install;
+use ExtUtils::MakeMaker;
 
-name 'WWW::Privatar';
-all_from 'lib/WWW/Privatar.pm';
+my $MM = WriteMakefile(
+    NAME          => 'WWW::Privatar',
+    VERSION_FROM  => "lib/WWW/Privatar.pm",
+    ABSTRACT_FROM => "lib/WWW/Privatar.pm",
+    AUTHOR        => 'Edmund von der Burg <evdb@cpan.org>',
+    PREREQ_PM     => {
+        'Carp'        => 0,
+        'Digest::MD5' => 0,
+        'URI'         => 0,
+    },
+    CONFIGURE_REQUIRES => {    #
+        'ExtUtils::MakeMaker' => 0,
+    },
+    BUILD_REQUIRES => {
+        'File::Slurp' => 0,
+        'JSON'        => 0,
+        'Test::More'  => 0,
+    },
 
-requires 'Carp'             => 0;
-requires 'Digest::MD5'      => 0;
-requires 'URI'              => 0;
+    LICENSE => 'perl',
 
-test_requires 'File::Slurp' => 0;
-test_requires 'JSON'        => 0;
-test_requires 'Test::More'  => 0;
-
-WriteAll;
+    META_MERGE => {
+        resources => {
+            homepage   => 'http://www.privatar.org',
+            bugtracker => 'https://github.com/evdb/Privatar/issues',
+            repository => 'https://github.com/evdb/Privatar',
+        },
+    },
+);

@@ -11,8 +11,7 @@ use Carp;
 
 =head1 NAME
 
-WWW::Privatar - Generate urls for Privatar - the privacy enhancing Gravatar
-proxy
+WWW::Privatar - generate urls for the privacy enhancing Gravatar proxy
 
 =head1 METHODS
 
@@ -172,5 +171,11 @@ sub _md5 {
     return unless scalar(@_) && $_[0];
     return Digest::MD5::md5_hex( join( '-', @_ ) );
 }
+
+=head1 AUTHOR
+
+Edmund von der Burg 
+
+=cut
 
 1;

@@ -2,7 +2,6 @@ Makefile.PL
 lib/WWW/Privatar.pm
 MANIFEST
 t/00-load.t
-t/test_data
 t/test_data/encrypt.json
 t/test_data/url_conversion.json
 t/test_data/xor_samples.json
