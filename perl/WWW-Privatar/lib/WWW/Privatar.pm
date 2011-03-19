@@ -145,8 +145,11 @@ sub generate_avatar_code {
     # encrypt the email_md5
     my $encrypted_md5 = $self->xor_md5s( $email_md5, $one_time_pad );
 
+    # get the first letter of the shared_secret
+    my $first_letter = substr $self->shared_secret, 0, 1;
+
     # return the avatar code
-    return join '-', $self->site_key, $salt, $encrypted_md5;
+    return join '-', $self->site_key, $salt, $first_letter, $encrypted_md5;
 }
 
 =head2 generate_salt

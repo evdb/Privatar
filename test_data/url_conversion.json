@@ -5,8 +5,8 @@
             "email" : "joe@example.com"
         },
         "urls" : {
-            "http"  : "http://www.privatar.org/avatar/testsite-14bsgli7-482d7502b630d7355420577f8431adad",
-            "https" : "https://privatar-org.appspot.com/avatar/testsite-14bsgli7-482d7502b630d7355420577f8431adad"
+            "http"  : "http://www.privatar.org/avatar/testsite-14bsgli7-t-482d7502b630d7355420577f8431adad",
+            "https" : "https://privatar-org.appspot.com/avatar/testsite-14bsgli7-t-482d7502b630d7355420577f8431adad"
         }
     },
     {
@@ -15,8 +15,8 @@
             "email" : "bar@foo.com"
         },
         "urls" : {
-            "http"  : "http://www.privatar.org/avatar/testsite-xcomwnmq-77e8204500ae3e83eb6858c5b0fd1d3e",
-            "https" : "https://privatar-org.appspot.com/avatar/testsite-xcomwnmq-77e8204500ae3e83eb6858c5b0fd1d3e"
+            "http"  : "http://www.privatar.org/avatar/testsite-xcomwnmq-t-77e8204500ae3e83eb6858c5b0fd1d3e",
+            "https" : "https://privatar-org.appspot.com/avatar/testsite-xcomwnmq-t-77e8204500ae3e83eb6858c5b0fd1d3e"
         }
     },
     {
@@ -25,8 +25,8 @@
             "email_md5" : "f5b8fb60c6116331da07c65b96a8a1d1"
         },
         "urls" : {
-            "http"  : "http://www.privatar.org/avatar/testsite-14bsgli7-482d7502b630d7355420577f8431adad",
-            "https" : "https://privatar-org.appspot.com/avatar/testsite-14bsgli7-482d7502b630d7355420577f8431adad"
+            "http"  : "http://www.privatar.org/avatar/testsite-14bsgli7-t-482d7502b630d7355420577f8431adad",
+            "https" : "https://privatar-org.appspot.com/avatar/testsite-14bsgli7-t-482d7502b630d7355420577f8431adad"
         }
     },
     {
@@ -36,8 +36,8 @@
             "salt" : "testsalt"
         },
         "urls" : {
-            "http"  : "http://www.privatar.org/avatar/testsite-testsalt-43d96f02151add0ad675f9b5d064811a",
-            "https" : "https://privatar-org.appspot.com/avatar/testsite-testsalt-43d96f02151add0ad675f9b5d064811a"
+            "http"  : "http://www.privatar.org/avatar/testsite-testsalt-t-43d96f02151add0ad675f9b5d064811a",
+            "https" : "https://privatar-org.appspot.com/avatar/testsite-testsalt-t-43d96f02151add0ad675f9b5d064811a"
         }
     },
     {
@@ -51,8 +51,8 @@
             }
         },
         "urls" : {
-            "http"  : "http://www.privatar.org/avatar/testsite-14bsgli7-482d7502b630d7355420577f8431adad?foo=pass+through+anything&default=http%3A%2F%2Fexample.com%2Fdefault-60.png&size=60",
-            "https" : "https://privatar-org.appspot.com/avatar/testsite-14bsgli7-482d7502b630d7355420577f8431adad?foo=pass+through+anything&default=http%3A%2F%2Fexample.com%2Fdefault-60.png&size=60"
+            "http"  : "http://www.privatar.org/avatar/testsite-14bsgli7-t-482d7502b630d7355420577f8431adad?foo=pass+through+anything&default=http%3A%2F%2Fexample.com%2Fdefault-60.png&size=60",
+            "https" : "https://privatar-org.appspot.com/avatar/testsite-14bsgli7-t-482d7502b630d7355420577f8431adad?foo=pass+through+anything&default=http%3A%2F%2Fexample.com%2Fdefault-60.png&size=60"
         }
     },
     {
@@ -62,8 +62,8 @@
             "suffix"    : "jpg"
         },
         "urls" : {
-            "http"  : "http://www.privatar.org/avatar/testsite-14bsgli7-482d7502b630d7355420577f8431adad.jpg",
-            "https" : "https://privatar-org.appspot.com/avatar/testsite-14bsgli7-482d7502b630d7355420577f8431adad.jpg"
+            "http"  : "http://www.privatar.org/avatar/testsite-14bsgli7-t-482d7502b630d7355420577f8431adad.jpg",
+            "https" : "https://privatar-org.appspot.com/avatar/testsite-14bsgli7-t-482d7502b630d7355420577f8431adad.jpg"
         }
     }
 ]
