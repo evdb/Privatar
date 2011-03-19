@@ -20,8 +20,17 @@ WWW::Privatar - generate urls for the privacy enhancing Gravatar proxy
 =head2 new
 
     $privatar = WWW::Privatar->new({
-        site_key     => 'yoursitecode',
+
+        # required arguments
+        site_key      => 'yoursitecode',
         shared_secret => 'xxx',
+        
+        # optional args
+        suffix => 'jpg',    # default is none
+        
+        # If you run your own Privatar instance
+        http_base  => 'http://www.yourprivatar.com',
+        https_base => 'https://secure.yourprivitar.com',
     });
 
 Create a new privatar object. Pass in C<site_key> and C<shared_secret> to set
@@ -36,6 +45,7 @@ sub new {
     my $self = {
         http_base  => 'http://www.privatar.org',
         https_base => 'https://privatar-org.appspot.com',
+        suffix     => '',
         %$args
     };
 
@@ -48,6 +58,7 @@ sub new {
 
 sub http_base     { $_[0]->{http_base} }
 sub https_base    { $_[0]->{https_base} }
+sub suffix        { $_[0]->{suffix} }
 sub site_key      { $_[0]->{site_key} }
 sub shared_secret { $_[0]->{shared_secret} }
 
@@ -89,9 +100,11 @@ sub url {
     my $uri =
       URI->new( $args->{secure} ? $self->https_base : $self->http_base );
 
-    my $suffix = $args->{suffix} ? ".$args->{suffix}" : '';
+    # get the suffix and prepare it for adding to path
+    my $suffix = $args->{suffix} || $self->suffix || '';
+    $suffix = ".$suffix" if $suffix;
 
-    $uri->path("/avatar/$avatar_code$suffix");
+    $uri->path( "/avatar/" . $avatar_code . $suffix );
 
     $uri->query_form( $args->{query} || {} );
     return $uri;
