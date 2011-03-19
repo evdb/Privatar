@@ -9,9 +9,11 @@ my $MM = WriteMakefile(
     ABSTRACT_FROM => "lib/WWW/Privatar.pm",
     AUTHOR        => 'Edmund von der Burg <evdb@cpan.org>',
     PREREQ_PM     => {
-        'Carp'        => 0,
-        'Digest::MD5' => 0,
-        'URI'         => 0,
+        'Carp'         => 0,
+        'Digest::MD5'  => 0,
+        'URI'          => 0,
+        'Readonly'     => 0,
+        'Math::Base36' => 0,
     },
     CONFIGURE_REQUIRES => {    #
         'ExtUtils::MakeMaker' => 0,

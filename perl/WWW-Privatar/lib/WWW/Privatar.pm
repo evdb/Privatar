@@ -8,6 +8,8 @@ our $VERSION = '0.01';
 use Digest::MD5;
 use URI;
 use Carp;
+use Readonly;
+use Math::Base36 'encode_base36';
 
 =head1 NAME
 
@@ -117,7 +119,7 @@ Generate the salt for this E<email_md5>.
 The salt is something unique to each email on the site and is used to prevent
 replay attacks. It also needs to be anonymous so it is created by md5ing the
 E<site_key>, the E<shared_secret> and the E<email_md5> and then shortening the
-result to an 8 character string.
+result to an 8 character base36 string.
 
 =cut
 
@@ -132,8 +134,15 @@ sub generate_salt {
     # create the md5 hash
     my $hash = _md5( $self->shared_secret, $email_md5 );
 
-    # convert the hash from hex to something more information dense
-    return substr $hash, 0, 8;
+    # create a number from the first 16 chars of hex
+    my $number = 0;
+    $number += hex( substr $hash, 0, 8 );
+    $number += hex( substr $hash, 8, 8 ) * 2**16;
+
+    my $long_salt = lc encode_base36( $number, 8 );
+
+    # keep it short
+    return substr $long_salt, 0, 8;
 }
 
 =head2 xor_md5s
