@@ -34,7 +34,8 @@ sub new {
     my $args = shift || {};
 
     my $self = {
-        http_base => 'http://www.privatar.org',
+        http_base  => 'http://www.privatar.org',
+        https_base => 'https://privatar-org.appspot.com',
         %$args
     };
 
@@ -46,6 +47,7 @@ sub new {
 }
 
 sub http_base     { $_[0]->{http_base} }
+sub https_base    { $_[0]->{https_base} }
 sub site_key      { $_[0]->{site_key} }
 sub shared_secret { $_[0]->{shared_secret} }
 
@@ -53,6 +55,7 @@ sub shared_secret { $_[0]->{shared_secret} }
 
     $uri_object = $privatar->url({
         email_md5 => '00112233445566778899aabbccddeeff',
+        secure    => $bool,    # true for https, false for http (default)
     });
 
 Create a url.
@@ -65,7 +68,9 @@ sub url {
 
     my $avatar_code = $self->generate_avatar_code($args);
 
-    my $uri = URI->new( $self->http_base );
+    my $uri =
+      URI->new( $args->{secure} ? $self->https_base : $self->http_base );
+
     $uri->path("/avatar/$avatar_code");
     $uri->query_form( $args->{query} || {} );
     return $uri;
