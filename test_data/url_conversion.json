@@ -54,5 +54,16 @@
             "http"  : "http://www.privatar.org/avatar/testsite-14bsgli7-482d7502b630d7355420577f8431adad?foo=pass+through+anything&default=http%3A%2F%2Fexample.com%2Fdefault-60.png&size=60",
             "https" : "https://privatar-org.appspot.com/avatar/testsite-14bsgli7-482d7502b630d7355420577f8431adad?foo=pass+through+anything&default=http%3A%2F%2Fexample.com%2Fdefault-60.png&size=60"
         }
+    },
+    {
+        "msg" : "email_md5 and suffix (jpg)",
+        "args" : {                   
+            "email_md5" : "f5b8fb60c6116331da07c65b96a8a1d1",
+            "suffix"    : "jpg"
+        },
+        "urls" : {
+            "http"  : "http://www.privatar.org/avatar/testsite-14bsgli7-482d7502b630d7355420577f8431adad.jpg",
+            "https" : "https://privatar-org.appspot.com/avatar/testsite-14bsgli7-482d7502b630d7355420577f8431adad.jpg"
+        }
     }
 ]

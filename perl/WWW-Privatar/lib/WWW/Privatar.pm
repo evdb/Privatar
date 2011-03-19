@@ -24,7 +24,7 @@ WWW::Privatar - generate urls for the privacy enhancing Gravatar proxy
         shared_secret => 'xxx',
     });
 
-Create a new privatar object. Pass in E<site_key> and E<shared_secret> to set
+Create a new privatar object. Pass in C<site_key> and C<shared_secret> to set
 these for future method calls.
 
 =cut
@@ -53,12 +53,30 @@ sub shared_secret { $_[0]->{shared_secret} }
 
 =head2 url
 
-    $uri_object = $privatar->url({
-        email_md5 => '00112233445566778899aabbccddeeff',
-        secure    => $bool,    # true for https, false for http (default)
-    });
+    $uri_object = $privatar->url(
+        {
 
-Create a url.
+            # one of these is required
+            email     => 'joe@example.com',
+            email_md5 => '00112233445566778899aabbccddeeff',
+
+            # optional args
+            query => { rating => 'pg' },    # added to url (values uri escaped)
+            salt   => $salt_string,   # see notes below
+            secure => $bool,          # true for https, false for http (default)
+            suffix => 'jpg',          # added to end of url (eg 'xxx.jpg')
+        }
+    );
+
+Create a url for either the C<email_md5> or C<email> (which is md5ed for you).
+
+You may supply any of the optional arguments as needed.
+
+NOTE - if you choose to supply a C<salt> for the user please ensure that it is
+unique to the user and does not disclose any private information regarding the
+user. This includes anything that might be used to compare users across sites.
+Something like a user_id is probably a good fit, or let the module generate one
+for you.
 
 =cut
 
@@ -71,7 +89,10 @@ sub url {
     my $uri =
       URI->new( $args->{secure} ? $self->https_base : $self->http_base );
 
-    $uri->path("/avatar/$avatar_code");
+    my $suffix = $args->{suffix} ? ".$args->{suffix}" : '';
+
+    $uri->path("/avatar/$avatar_code$suffix");
+
     $uri->query_form( $args->{query} || {} );
     return $uri;
 }
@@ -84,8 +105,8 @@ sub url {
         salt      => 'xyzxyz',                              # optional
     });
 
-Create the privatar code for this site/email combination. Requires an E<email>
-or an E<email_md5>. Optionally you can provide a E<salt> or let the code produce
+Create the privatar code for this site/email combination. Requires an C<email>
+or an C<email_md5>. Optionally you can provide a C<salt> or let the code produce
 one for you. The salt should be unique to the user and should not reveal
 anything about them. If in doubt let the code produce one for you.
 
@@ -119,11 +140,11 @@ sub generate_avatar_code {
 
     $salt = $privatar->generate_salt( $email_md5 );
 
-Generate the salt for this E<email_md5>.
+Generate the salt for this C<email_md5>.
 
 The salt is something unique to each email on the site and is used to prevent
 replay attacks. It also needs to be anonymous so it is created by md5ing the
-E<site_key>, the E<shared_secret> and the E<email_md5> and then shortening the
+C<site_key>, the C<shared_secret> and the C<email_md5> and then shortening the
 result to an 8 character base36 string.
 
 =cut
@@ -155,7 +176,7 @@ sub generate_salt {
     $encrypted = WWW::Privatar->xor_md5s( $key_md5, $input_md5 );
     $input_md5 = WWW::Privatar->xor_md5s( $key_md5, $encrypted );
 
-Returns a 32 character long hex sring which is the result of XORing the key and
+Returns a 32 character long hex string which is the result of XORing the key and
 the input (both md5 hex digests).
 
 Note that this is symetric - so feeding the output back in will give you the
