@@ -38,5 +38,16 @@
         "key" : "0123456789abcdef0123456789abcdef",
         "in"  : "eeeeeeeeeeeeeeeeffffffffffffffff",
         "out" : "efcdab8967452301fedcba9876543210"
+    },
+
+    {
+        "key" : "00000000000000000000000000000000",
+        "in"  : "00000000000000000000000000000000",
+        "out" : "00000000000000000000000000000000"
+    },
+    {
+        "key" : "ffffffffffffffffffffffffffffffff",
+        "in"  : "ffffffffffffffffffffffffffffffff",
+        "out" : "00000000000000000000000000000000"
     }
 ]
