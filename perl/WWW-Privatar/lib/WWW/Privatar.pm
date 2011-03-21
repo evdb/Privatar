@@ -7,6 +7,7 @@ our $VERSION = '0.01';
 
 use Digest::MD5;
 use URI;
+use URI::QueryParam;
 use Carp;
 use Readonly;
 use Math::Base36 'encode_base36';
@@ -106,7 +107,9 @@ sub url {
 
     $uri->path( "/avatar/" . $avatar_code . $suffix );
 
-    $uri->query_form( $args->{query} || {} );
+    my $query = $args->{query} || {};
+    $uri->query_param( $_ => $query->{$_} ) for sort keys %$query;
+
     return $uri;
 }
 
@@ -177,9 +180,8 @@ sub generate_salt {
     my $hash = _md5( $self->shared_secret, $email_md5 );
 
     # create a number from the first 16 chars of hex
-    my $number = 0;
-    $number += hex( substr $hash, 0, 8 );
-    $number += hex( substr $hash, 8, 8 ) * 2**16;
+    use bignum;
+    my $number = hex( substr $hash, 0, 16 );
 
     my $long_salt = lc encode_base36( $number, 8 );
 
