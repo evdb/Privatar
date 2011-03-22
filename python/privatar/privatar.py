@@ -1,5 +1,5 @@
 from Crypto.Hash import MD5
-import urlencoding # pip install -e 'git://github.com/nshah/python-urlencoding.git#egg=urlencoding'
+import urllib
 
 class privatar():
     http_base  = 'http://www.privatar.org'
@@ -9,16 +9,19 @@ class privatar():
     def __init__(self, site_key, shared_secret):
         self.site_key      = site_key
         self.shared_secret = shared_secret    
-        
+
+
     @classmethod
     def xor_md5s (cls, md5a, md5b ) :
         """Return the XOR result of the inputs"""
         return "%032x" % ( int(md5a, 16) ^ int(md5b, 16) )
 
+
     @classmethod
     def md5(cls, *input):        
         return MD5.new( '-'.join(input) ).hexdigest();
-    
+
+
     def url( self, email=False, email_md5=False, secure=False, salt=False, query=False, suffix=False ):
         
         # get the email_md5 to use
@@ -40,10 +43,11 @@ class privatar():
             url += '.' + suffix
 
         if query:
-            url += '?' + urlencoding.compose_qs( query, sort=True )
+            url += '?' + self._compose_qs( query )
 
         return url
-    
+
+
     def generate_salt( self, email_md5 ):
 
         # create the md5 hash
@@ -59,7 +63,8 @@ class privatar():
 
         # keep it short
         return "%08s" % base36[:8]
-        
+
+
     def generate_avatar_code( self, email_md5, salt=False ):
         # generate salt if needed
         if not salt:
@@ -75,7 +80,8 @@ class privatar():
         first_letter = self.shared_secret[:1]
         
         return '-'.join( [ self.site_key, salt, first_letter, encrypted_md5 ] )
-    
+
+
     def extract_email_md5( self, code ):
         site_key, salt, first_letter, encrypted_md5 = code.split('-')
 
@@ -86,4 +92,16 @@ class privatar():
         return self.xor_md5s( encrypted_md5, one_time_pad );
         
         
-        
+    @classmethod
+    def _compose_qs(cls, params):    
+        # from git://github.com/nshah/python-urlencoding.git
+        pieces = []
+        for key in sorted(params):
+            value = params[key]
+            p = '%s=%s' % (cls._uri_escape(str(key)), cls._uri_escape(str(value)) )
+            pieces.append(p)
+        return '&'.join(pieces)
+
+    @classmethod
+    def _uri_escape(cls, value):
+        return urllib.quote(value, safe='~')
