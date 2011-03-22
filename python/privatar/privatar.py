@@ -90,8 +90,8 @@ class privatar():
         one_time_pad = self.md5( salt, shared_secret )        
 
         return self.xor_md5s( encrypted_md5, one_time_pad );
-        
-        
+
+
     @classmethod
     def _compose_qs(cls, params):    
         # from git://github.com/nshah/python-urlencoding.git
@@ -101,6 +101,7 @@ class privatar():
             p = '%s=%s' % (cls._uri_escape(str(key)), cls._uri_escape(str(value)) )
             pieces.append(p)
         return '&'.join(pieces)
+
 
     @classmethod
     def _uri_escape(cls, value):
