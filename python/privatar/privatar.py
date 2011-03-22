@@ -39,11 +39,11 @@ class privatar():
         
         url = "%s/avatar/%s" % ( base, avatar_code )
 
-        if query:
-            url += '?' + urlencoding.compose_qs( query, sort=True )
-
         if suffix:
             url += '.' + suffix
+
+        if query:
+            url += '?' + urlencoding.compose_qs( query, sort=True )
 
         return url
     

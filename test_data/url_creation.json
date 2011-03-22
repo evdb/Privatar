@@ -71,6 +71,18 @@
                 "http"  : "http://www.privatar.org/avatar/testsite-2a9ig6e0-t-3324ca1864fa9ee01f7fdceaa833b4b3.jpg",
                 "https" : "https://privatar-org.appspot.com/avatar/testsite-2a9ig6e0-t-3324ca1864fa9ee01f7fdceaa833b4b3.jpg"
             }
+        },
+        {
+            "msg" : "email_md5, query and suffix (jpg)",
+            "args" : {                   
+                "email_md5" : "f5b8fb60c6116331da07c65b96a8a1d1",
+                "suffix"    : "jpg",
+                "query"     : { "foo" : "bar" }
+            },
+            "urls" : {
+                "http"  : "http://www.privatar.org/avatar/testsite-2a9ig6e0-t-3324ca1864fa9ee01f7fdceaa833b4b3.jpg?foo=bar",
+                "https" : "https://privatar-org.appspot.com/avatar/testsite-2a9ig6e0-t-3324ca1864fa9ee01f7fdceaa833b4b3.jpg?foo=bar"
+            }
         }
     ]
 }
