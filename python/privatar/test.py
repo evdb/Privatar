@@ -26,7 +26,7 @@ class XORValues(unittest.TestCase):
 
 class URLCreation(unittest.TestCase):
 
-    test_data = json.loads( open('test_data/url_creation.json').read(), encoding='ASCII' )
+    test_data = json.loads( open('test_data/url_creation.json').read() )
     _privatar = False
 
     def privatar(self):
@@ -49,6 +49,30 @@ class URLCreation(unittest.TestCase):
 
             secure_url = self.privatar().url( secure=True, **args );
             self.assertEqual( secure_url, test['urls']['https'] )                    
+
+class CodeRoundtrip(unittest.TestCase):
+
+    test_data = json.loads( open('test_data/avatar_code_roundtrip.json').read() )
+    _privatar = False
+
+    def privatar(self):
+        if not self._privatar:
+            config = self.test_data['config']
+            self._privatar = privatar( site_key=config['site_key'], shared_secret=config['shared_secret'] )
+        return self._privatar
+     
+
+    def test_roundtrip(self):
+        """test that urls are generated as expected"""
+        for test in self.test_data['tests']:
+            
+            # check that correct code is generated
+            code = self.privatar().generate_avatar_code( test['email_md5'], test.get('salt', False) )
+            self.assertEqual( code, test['code'] )
+
+            # check that the original email_md5 is returned
+            email_md5 = self.privatar().extract_email_md5( code );
+            self.assertEqual( email_md5, test['email_md5'] )                    
 
 if __name__ == "__main__":
     unittest.main()   

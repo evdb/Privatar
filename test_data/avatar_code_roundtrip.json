@@ -1,0 +1,19 @@
+{
+    "config" : {
+        "site_key"      : "testsite",
+        "shared_secret" : "testsharedsecret"
+    },
+    "tests" : [
+        {
+            "msg"       : "just email_md5 - md5(joe@example.com)",
+            "email_md5" : "f5b8fb60c6116331da07c65b96a8a1d1",
+            "code"      : "testsite-2a9ig6e0-t-3324ca1864fa9ee01f7fdceaa833b4b3"                
+        },
+        {
+            "msg" : "email_md5 and a provided salt",
+            "email_md5" : "f5b8fb60c6116331da07c65b96a8a1d1",
+            "salt"      : "testsalt",
+            "code"      : "testsite-testsalt-t-43d96f02151add0ad675f9b5d064811a"
+        }
+    ]
+}

@@ -27,9 +27,6 @@ class privatar():
         if not email_md5:
             raise Exception("Require either 'email' or 'email_md5'")      
         
-        if not salt:
-            salt = self.generate_salt( email_md5 )
-        
         avatar_code = self.generate_avatar_code( email_md5, salt )
         
         if secure:
@@ -63,7 +60,11 @@ class privatar():
         # keep it short
         return "%08s" % base36[:8]
         
-    def generate_avatar_code( self, email_md5, salt ):
+    def generate_avatar_code( self, email_md5, salt=False ):
+        # generate salt if needed
+        if not salt:
+            salt = self.generate_salt( email_md5 )
+        
         # create the hash to encrypt the email_md5 with
         one_time_pad = self.md5( salt, self.shared_secret )
         
@@ -74,4 +75,15 @@ class privatar():
         first_letter = self.shared_secret[:1]
         
         return '-'.join( [ self.site_key, salt, first_letter, encrypted_md5 ] )
+    
+    def extract_email_md5( self, code ):
+        site_key, salt, first_letter, encrypted_md5 = code.split('-')
+
+        shared_secret = self.shared_secret
+
+        one_time_pad = self.md5( salt, shared_secret )        
+
+        return self.xor_md5s( encrypted_md5, one_time_pad );
+        
+        
         
