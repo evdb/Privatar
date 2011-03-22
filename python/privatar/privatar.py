@@ -82,14 +82,24 @@ class privatar():
         return '-'.join( [ self.site_key, salt, first_letter, encrypted_md5 ] )
 
 
-    def extract_email_md5( self, code ):
+    @classmethod
+    def extract_site_key( cls, code ):
+        site_key, salt, first_letter, encrypted_md5 = code.split('-')
+        return site_key;
+
+
+    @classmethod
+    def extract_email_md5( cls, code, shared_secrets ):
         site_key, salt, first_letter, encrypted_md5 = code.split('-')
 
-        shared_secret = self.shared_secret
+        if first_letter in shared_secrets:
+            shared_secret = shared_secrets[first_letter]
+        else:
+            raise Exception('No matching shared_secret found');
 
-        one_time_pad = self.md5( salt, shared_secret )        
+        one_time_pad = cls.md5( salt, shared_secret )        
 
-        return self.xor_md5s( encrypted_md5, one_time_pad );
+        return cls.xor_md5s( encrypted_md5, one_time_pad );
 
 
     @classmethod

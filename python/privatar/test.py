@@ -50,28 +50,18 @@ class URLCreation(unittest.TestCase):
             secure_url = self.privatar().url( secure=True, **args );
             self.assertEqual( secure_url, test['urls']['https'] )                    
 
-class CodeRoundtrip(unittest.TestCase):
+class Decrypt(unittest.TestCase):
 
-    test_data = json.loads( open('test_data/avatar_code_roundtrip.json').read() )
-    _privatar = False
+    test_data = json.loads( open('test_data/decrypt.json').read() )
 
-    def privatar(self):
-        if not self._privatar:
-            config = self.test_data['config']
-            self._privatar = privatar( site_key=config['site_key'], shared_secret=config['shared_secret'] )
-        return self._privatar
-     
-
-    def test_roundtrip(self):
-        """test that urls are generated as expected"""
-        for test in self.test_data['tests']:
+    def test_decrypt(self):
+        """test that privatar codes can be decrypted"""
+        for test in self.test_data:
             
-            # check that correct code is generated
-            code = self.privatar().generate_avatar_code( test['email_md5'], test.get('salt', False) )
-            self.assertEqual( code, test['code'] )
+            site_key  = privatar.extract_site_key( test['code'] );
+            self.assertEqual( site_key, test['site_key'] )                    
 
-            # check that the original email_md5 is returned
-            email_md5 = self.privatar().extract_email_md5( code );
+            email_md5 = privatar.extract_email_md5( test['code'], test['shared_secrets'] );
             self.assertEqual( email_md5, test['email_md5'] )                    
 
 if __name__ == "__main__":
