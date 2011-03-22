@@ -96,7 +96,7 @@ sub url {
     my $self = shift;
     my $args = shift || {};
 
-    my $avatar_code = $self->generate_avatar_code($args);
+    my $privatar_code = $self->generate_privatar_code($args);
 
     my $uri =
       URI->new( $args->{secure} ? $self->https_base : $self->http_base );
@@ -105,7 +105,7 @@ sub url {
     my $suffix = $args->{suffix} || $self->suffix || '';
     $suffix = ".$suffix" if $suffix;
 
-    $uri->path( "/avatar/" . $avatar_code . $suffix );
+    $uri->path( "/avatar/" . $privatar_code . $suffix );
 
     my $query = $args->{query} || {};
     $uri->query_param( $_ => $query->{$_} ) for sort keys %$query;
@@ -113,9 +113,9 @@ sub url {
     return $uri;
 }
 
-=head2 generate_avatar_code
+=head2 generate_privatar_code
 
-    $avatar_code = $privatar->generate_avatar_code({
+    $privatar_code = $privatar->generate_privatar_code({
         email     => 'joe@example.com',                     # either...
         email_md5 => 'f5b8fb60c6116331da07c65b96a8a1d1',    # ...or
         salt      => 'xyzxyz',                              # optional
@@ -128,7 +128,7 @@ anything about them. If in doubt let the code produce one for you.
 
 =cut
 
-sub generate_avatar_code {
+sub generate_privatar_code {
     my $self = shift;
     my $args = shift || {};
 

@@ -30,14 +30,14 @@ class privatar():
         if not email_md5:
             raise Exception("Require either 'email' or 'email_md5'")      
         
-        avatar_code = self.generate_avatar_code( email_md5, salt )
+        privatar_code = self.generate_privatar_code( email_md5, salt )
         
         if secure:
             base = self.https_base
         else:
             base = self.http_base
         
-        url = "%s/avatar/%s" % ( base, avatar_code )
+        url = "%s/avatar/%s" % ( base, privatar_code )
 
         if suffix:
             url += '.' + suffix
@@ -65,7 +65,7 @@ class privatar():
         return "%08s" % base36[:8]
 
 
-    def generate_avatar_code( self, email_md5, salt=False ):
+    def generate_privatar_code( self, email_md5, salt=False ):
         # generate salt if needed
         if not salt:
             salt = self.generate_salt( email_md5 )
