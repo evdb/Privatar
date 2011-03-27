@@ -16,18 +16,36 @@ class AvatarHandler(webapp.RequestHandler):
 
         # request the gravatar image and return it (caching as we go)
         gravatar_url = "http://www.gravatar.com/avatar/%s" % gravatar_md5
+        gravatar_url += '?d=404'
         
         # serve the gravatar url
         self.serve_gravatar_url( gravatar_url )
 
 
+    def get_gravatar_md5(self):
+        # extract the privatar code from the url
+
+        # get the site_key
+
+        # load the shared_secret dictionary for the site key
+
+        # decrypt md5
+
+        return '00000000000000000000000000000002'
+
+
     def serve_gravatar_url( self, gravatar_url ):
 
         res = self.fetch_gravatar_url( gravatar_url )
+        
+        # TODO - handle If-not-modified responses
 
-        # set the headers and the content
-        self.response.headers['Content-Type'] = 'image/jpeg'
-        self.response.out.write(res.content)
+        # set the headers and the content for success
+        if res.status_code == 200:
+            self.response.headers['Content-Type'] = 'image/jpeg'
+            self.response.out.write(res.content)
+        else:
+            self.serve_404_image()
 
 
     def fetch_gravatar_url( self, gravatar_url ):
@@ -46,13 +64,9 @@ class AvatarHandler(webapp.RequestHandler):
         # return self.error(404)
 
 
-    def get_gravatar_md5(self):
-        # extract the privatar code from the url
-        
-        # get the site_key
-        
-        # load the shared_secret dictionary for the site key
-        
-        # decrypt md5
-                
-        return '00000000000000000000000000000000'
+    def serve_404_image(self):
+        # FIXME send file directly rather than redirecting
+        # FIXME resize image to correct size
+        # FIXME set status code to 404
+        self.redirect( '/static/404.jpg' )
+
