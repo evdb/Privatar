@@ -4,6 +4,7 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 from google.appengine.api.urlfetch import fetch
 from google.appengine.api.memcache import Client
+from google.appengine.api import images
 
 from externals.privatar import privatar
 
@@ -64,9 +65,19 @@ class AvatarHandler(webapp.RequestHandler):
         # return self.error(404)
 
 
-    def serve_404_image(self):
-        # FIXME send file directly rather than redirecting
+    def serve_404_image(self, size=80):
         # FIXME resize image to correct size
-        # FIXME set status code to 404
-        self.redirect( '/static/404.jpg' )
+        memcache = Client()
+        memcache_key = '404-image-%s' % size
 
+        content = memcache.get( memcache_key )
+        
+        if not content:
+            image = images.Image( open('assets/404.jpg').read() )
+            image.resize( width=size, height=size )
+            content = image.execute_transforms( output_encoding=images.JPEG )
+            memcache.set( memcache_key, content, time=86400 )
+        
+        self.response.headers['Content-Type'] = 'image/jpeg'
+        self.response.out.write(content)
+        return
