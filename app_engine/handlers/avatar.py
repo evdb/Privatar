@@ -1,4 +1,5 @@
 import logging
+import cgi
 
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
@@ -9,8 +10,36 @@ from google.appengine.api import images
 from externals.privatar import privatar
 
 class AvatarHandler(webapp.RequestHandler):
+    qs = None
+    # privatar_code = None
+    # gravatar_md5  = None
+
+    def setup(self):
+
+        qs = {}
+
+        # extract the request parameters and create a normal dict of them
+        request_params = cgi.parse_qs( self.request.query_string )
+        for key in request_params:
+            qs[key] = request_params[key][0]
+            
+        if 's' in qs:
+            qs['size'] = qs['s']
+            del( qs['s'] )
+
+        # size must be a number between 1 and 512. default 80
+        size = int( qs.get( 'size', 80 ) )
+        if size < 1 or size > 512:
+            size = 80
+        qs['size'] = size
+        
+        self.qs = qs
+        logging.debug( self.qs )
+        return 1
+
+
     def get(self):
-        logging.debug( 'path: %s' % self.request.path )
+        self.setup()
 
         # extract the gravatar MD5 from the privatar code
         gravatar_md5 = self.get_gravatar_md5()
@@ -65,10 +94,14 @@ class AvatarHandler(webapp.RequestHandler):
         # return self.error(404)
 
 
-    def serve_404_image(self, size=80):
-        # FIXME resize image to correct size
+    def serve_404_image(self):
+
+        size = self.qs['size']
+
+
         memcache = Client()
         memcache_key = '404-image-%s' % size
+
 
         content = memcache.get( memcache_key )
         
