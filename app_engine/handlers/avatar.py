@@ -36,7 +36,10 @@ class AvatarHandler(webapp.RequestHandler):
                 qs[to] = qs.pop(old)
 
         # size must be a number between 1 and 512. default 80
-        size = int( qs.get( 'size', 80 ) )
+        try:
+            size = int( qs.get( 'size', 80 ) )
+        except ValueError:
+            size = 80
         if size < 1:    size = 1
         if size > 512:  size = 512
 
