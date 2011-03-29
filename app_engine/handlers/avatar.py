@@ -119,13 +119,12 @@ class AvatarHandler(webapp.RequestHandler):
         return self.error(404)
 
 
-
     def serve_mm_404_image(self):
         return self.serve_asset_image( 'mm.png' )
 
 
     def serve_privatar_404_image(self):
-        return self.serve_asset_image( '404.jpg' )
+        return self.serve_asset_image( '404.png' )
 
 
     def serve_asset_image(self, image_filename):
@@ -139,9 +138,9 @@ class AvatarHandler(webapp.RequestHandler):
         if not content:
             image = images.Image( open('assets/' + image_filename).read() )
             image.resize( width=size, height=size )
-            content = image.execute_transforms( output_encoding=images.JPEG )
+            content = image.execute_transforms( output_encoding=images.PNG )
             memcache.set( memcache_key, content, time=86400 )
         
-        self.response.headers['Content-Type'] = 'image/jpeg'
+        self.response.headers['Content-Type'] = 'image/png'
         self.response.out.write(content)
         return
