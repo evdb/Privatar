@@ -14,6 +14,13 @@ class AvatarHandler(webapp.RequestHandler):
     # privatar_code = None
     # gravatar_md5  = None
 
+    param_renaming = {
+        "s" : "size",
+        "d" : "default",
+        "f" : "forcedefault",
+        "r" : "rating",
+    }
+
     def setup(self):
 
         qs = {}
@@ -23,14 +30,16 @@ class AvatarHandler(webapp.RequestHandler):
         for key in request_params:
             qs[key] = request_params[key][0]
             
-        if 's' in qs:
-            qs['size'] = qs['s']
-            del( qs['s'] )
+        # rename all parameters to be consistent
+        for (old, to) in self.param_renaming.items():
+            if old in qs:
+                qs[to] = qs.pop(old)
 
         # size must be a number between 1 and 512. default 80
         size = int( qs.get( 'size', 80 ) )
-        if size < 1 or size > 512:
-            size = 80
+        if size < 1:    size = 1
+        if size > 512:  size = 512
+
         qs['size'] = size
         
         self.qs = qs
