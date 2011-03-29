@@ -32,8 +32,7 @@ class AvatarHandler(webapp.RequestHandler):
             
         # rename all parameters to be consistent
         for (old, to) in self.param_renaming.items():
-            if old in qs:
-                qs[to] = qs.pop(old)
+            qs[to] = qs.pop(old, '')
 
         # size must be a number between 1 and 512. default 80
         try:
@@ -87,7 +86,7 @@ class AvatarHandler(webapp.RequestHandler):
             self.response.headers['Content-Type'] = 'image/jpeg'
             self.response.out.write(res.content)
         else:
-            self.serve_404_image()
+            self.serve_404()
 
 
     def fetch_gravatar_url( self, gravatar_url ):
@@ -106,19 +105,39 @@ class AvatarHandler(webapp.RequestHandler):
         # return self.error(404)
 
 
-    def serve_404_image(self):
+    def serve_404(self):
 
+        default = self.qs['default']
+
+        if   default == '404'       : self.serve_404_response()
+        elif default == 'mm'        : self.serve_mm_404_image()
+        # elif default == 'identicon' : self.serve_mm_404_image() # TODO - add
+        else                        : self.serve_privatar_404_image()
+
+
+    def serve_404_response(self):
+        return self.error(404)
+
+
+
+    def serve_mm_404_image(self):
+        return self.serve_asset_image( 'mm.png' )
+
+
+    def serve_privatar_404_image(self):
+        return self.serve_asset_image( '404.jpg' )
+
+
+    def serve_asset_image(self, image_filename):
         size = self.qs['size']
 
-
         memcache = Client()
-        memcache_key = '404-image-%s' % size
-
+        memcache_key = 'serve_asset_image-%s-%s' % ( image_filename, size )
 
         content = memcache.get( memcache_key )
         
         if not content:
-            image = images.Image( open('assets/404.jpg').read() )
+            image = images.Image( open('assets/' + image_filename).read() )
             image.resize( width=size, height=size )
             content = image.execute_transforms( output_encoding=images.JPEG )
             memcache.set( memcache_key, content, time=86400 )
