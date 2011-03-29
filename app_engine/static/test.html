@@ -2,18 +2,96 @@
 <html>
     <head>
         <title>Test images</title>
+
+        <style type="text/css" media="screen">
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            div {
+                border: 1px solid #888;
+                background-color: #bbb;
+                float: left;
+                margin: 4px;
+            }
+            
+            div img {
+                margin: 4px;
+            }
+            
+            br {
+                clear: both;
+            }
+        </style>
     </head>
     <body>
 
-        <img src="http://www.gravatar.com/avatar/00000000000000000000000000000000">
-        <img src="/avatar/testsite-abcdefgh-a-00000000000000000000000000000000">
+        <p>bare miss and bare hit</p>
 
-        <hr/>
+        <div>
+            <img src="http://www.gravatar.com/avatar/00000000000000000000000000000000">
+            <img src="/avatar/testsite-abcdefgh-a-00000000000000000000000000000000">
+        </div>
 
-        <img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?s=128">
-        <img src="/avatar/testsite-abcdefgh-a-00000000000000000000000000000000?s=128">
+        <div>
+            <img src="http://www.gravatar.com/avatar/5d31322228e56596272ff389e86eaaa1">
+            <img src="/avatar/testsite-abcdefgh-a-00000000000000000000000000000000">
+        </div>
 
-        <hr/>
+        <br/>
+
+        <p>specify default</p>
+
+        <div>
+            <img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=identicon">
+            <img src="/avatar/testsite-abcdefgh-a-00000000000000000000000000000000?d=identicon">
+        </div>
+
+        <div>
+            <img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm">
+            <img src="/avatar/testsite-abcdefgh-a-00000000000000000000000000000000?d=mm">
+        </div>
+
+        <div>
+            <img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=404">
+            <img src="/avatar/testsite-abcdefgh-a-00000000000000000000000000000000?d=404">
+        </div>
+
+        <br/>
+
+        <p>add '.jpg' suffix</p>
+
+        <div>
+            <img src="http://www.gravatar.com/avatar/5d31322228e56596272ff389e86eaaa1.jpg">
+            <img src="/avatar/testsite-abcdefgh-a-00000000000000000000000000000000.jpg">
+        </div>
+
+        <br/>
+
+        <p>specify size</p>
+
+        <div>
+            <img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?s=32">
+            <img src="/avatar/testsite-abcdefgh-a-00000000000000000000000000000000?s=32">
+        </div>
+
+        <div>
+            <img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?s=128">
+            <img src="/avatar/testsite-abcdefgh-a-00000000000000000000000000000000?s=128">
+        </div>
+
+        <div>
+            <img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?s=1000">
+            <img src="/avatar/testsite-abcdefgh-a-00000000000000000000000000000000?s=1000">
+        </div>
+
+        <div>
+            <img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?s=foo">
+            <img src="/avatar/testsite-abcdefgh-a-00000000000000000000000000000000?s=foo">
+        </div>
+
+        <br/>
 
 
     </body>
