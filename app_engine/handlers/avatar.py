@@ -2,7 +2,6 @@ import logging
 import cgi
 
 from google.appengine.ext import webapp
-from google.appengine.ext.webapp import util
 from google.appengine.api.urlfetch import fetch
 from google.appengine.api.memcache import Client
 from google.appengine.api import images
@@ -39,6 +38,7 @@ class AvatarHandler(webapp.RequestHandler):
             size = int( qs.get( 'size', 80 ) )
         except ValueError:
             size = 80
+        if not size:    size = 80
         if size < 1:    size = 1
         if size > 512:  size = 512
 
