@@ -21,7 +21,7 @@ def privatar_url_from_email(value):
 
 def privatar_url_from_md5(value):
     p = get_privatar()
-    return p.url(email=value)
+    return p.url(email_md5=value)
  
 
 register = webapp.template.create_template_register()

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+
+{% block title %}Your Sites{% endblock %}
+
+
+{% block content %}
+
+<h1>Your sites</h1>
+
+{% for site in sites %}
+site
+{% empty %}
+You have no sites - you should <a href="/site/new">create one</a>
+{% endfor %}
+
+
+{% endblock %}

@@ -2,7 +2,6 @@
 
 import os
 import logging
-import cgi
 
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
@@ -12,6 +11,7 @@ use_library('django', '1.2')
 
 from handlers.index  import IndexHandler
 from handlers.avatar import AvatarHandler
+from handlers.site   import SiteHandler
 
 # Load custom Django template filters
 webapp.template.register_template_library('templates.customfilters')
@@ -30,6 +30,7 @@ def main():
     application = webapp.WSGIApplication(
         [
             ( '/avatar/.*', AvatarHandler ),
+            ( '/site/([^/]*).*',   SiteHandler ),
             ( '/.*',        IndexHandler  ),
         ],
         debug=is_dev # only debug on dev server
