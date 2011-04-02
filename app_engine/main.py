@@ -2,6 +2,7 @@
 
 import os
 import logging
+import cgi
 
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
@@ -12,6 +13,10 @@ use_library('django', '1.2')
 from handlers.index  import IndexHandler
 from handlers.avatar import AvatarHandler
 
+# Load custom Django template filters
+webapp.template.register_template_library('templates.customfilters')
+
+
 def main():
 
     # determine if this is the dev server or not
@@ -21,14 +26,13 @@ def main():
     except:
       is_dev = False
       logging.getLogger().setLevel(logging.WARN)
-
-
+      
     application = webapp.WSGIApplication(
         [
             ( '/avatar/.*', AvatarHandler ),
             ( '/.*',        IndexHandler  ),
         ],
-        debug=is_dev # olny debug on dev server
+        debug=is_dev # only debug on dev server
     )
 
     util.run_wsgi_app(application)

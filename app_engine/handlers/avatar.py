@@ -72,7 +72,7 @@ class AvatarHandler(webapp.RequestHandler):
 
         # decrypt md5
 
-        return '00000000000000000000000000000002'
+        return '00000000000000000000000000000000'
 
 
     def serve_gravatar_url( self, gravatar_url ):
