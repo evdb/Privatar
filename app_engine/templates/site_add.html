@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+
+{% block title %}Add a site{% endblock %}
+
+
+{% block content %}
+
+<h1>Add a site</h1>
+
+<form action="/site/add" method="post">
+
+    {% if site_key_error %}
+    <div class="error">{{ site_key_error }}</div>
+    {% endif %}
+
+    <label for="site_key">site key:</label>
+    <input type="text" name="site_key" id="site_key" value="{{ site_key }}" />
+    <input type="submit" />
+</form>
+
+{% endblock %}

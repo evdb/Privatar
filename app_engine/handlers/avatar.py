@@ -45,7 +45,7 @@ class AvatarHandler(webapp.RequestHandler):
         qs['size'] = size
         
         self.qs = qs
-        logging.debug( self.qs )
+        # logging.debug( self.qs )
         return 1
 
 

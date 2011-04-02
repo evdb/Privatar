@@ -29,9 +29,9 @@ def main():
       
     application = webapp.WSGIApplication(
         [
-            ( '/avatar/.*', AvatarHandler ),
+            ( '/avatar/.*',        AvatarHandler ),
             ( '/site/([^/]*).*',   SiteHandler ),
-            ( '/.*',        IndexHandler  ),
+            ( '/.*',               IndexHandler  ),
         ],
         debug=is_dev # only debug on dev server
     )

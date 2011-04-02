@@ -9,9 +9,9 @@
 <h1>Your sites</h1>
 
 {% for site in sites %}
-site
+    <a href="/site/{{ site.site_key }}">{{ site.site_key }}</a>
 {% empty %}
-You have no sites - you should <a href="/site/new">create one</a>
+    You have no sites - you should <a href="/site/add">create one</a>
 {% endfor %}
 
 
