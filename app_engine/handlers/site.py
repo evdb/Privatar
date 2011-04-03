@@ -6,7 +6,7 @@ from google.appengine.ext        import webapp
 from google.appengine.ext.webapp import template
 from google.appengine.api        import users
 
-from models import Site
+from models import Person, Site
 
 class SiteHandler(webapp.RequestHandler):
     def __init__(self):
@@ -16,8 +16,8 @@ class SiteHandler(webapp.RequestHandler):
 
         user = users.get_current_user()
         if user:
-            self.user = user
-            self.vars["user"] = self.user
+            self.person = Person.from_user(user)
+            self.vars["person"] = self.person
             self.vars["logout_url"] = users.create_logout_url('/')
 
     def post(self, site_key):
@@ -46,7 +46,7 @@ class SiteHandler(webapp.RequestHandler):
         self.template_path = 'templates/site_list.html'
 
         # find all matching sites
-        sites = Site.all().filter('owner =', self.user).fetch(100)
+        sites = self.person.site_set.fetch(100)
         self.vars["sites"] = sites
     
     def add_site(self):
@@ -54,7 +54,6 @@ class SiteHandler(webapp.RequestHandler):
         
         # get the site key
         site_key = self.request.get('site_key').strip()
-        # site_key = re.sub('\s+', '', site_key)
         self.vars['site_key'] = site_key
         
         # return if there is no site_key, or we are not a post
@@ -72,14 +71,14 @@ class SiteHandler(webapp.RequestHandler):
             return
         
         # ok to create
-        site = Site( site_key=site_key )
+        site = Site( site_key=site_key, owner=self.person )
         site.put()        
         self.redirect('/site/' + site_key )
         
     def show_site(self, site_key):
         self.template_path = 'templates/site_show.html'
 
-        site = Site.all().filter( 'site_key =', site_key).get()
+        site = self.person.site_set.filter( 'site_key =', site_key).get()
         
         if not site:
             return self.error(404)

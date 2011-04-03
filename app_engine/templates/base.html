@@ -11,10 +11,10 @@
                 <li><a href="/about">About</a></li>
                 <li><a href="/site/">Create Privatar urls</a></li>
 
-                {% if user %}
+                {% if person %}
                     <li>
-                        <img src="{{ user.email|privatar_url_from_email }}?s=16" height="16" width="16">
-                        {{ user.nickname }}
+                        <img src="{{ person.email|privatar_url_from_email }}?s=16" height="16" width="16">
+                        {{ person.email }}
                         (<a href="{{ logout_url }}">log out</a>)
                     </li>
                 {% endif %}
