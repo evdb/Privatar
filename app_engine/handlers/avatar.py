@@ -1,5 +1,6 @@
 import logging
 import cgi
+import re
 
 from google.appengine.ext import webapp
 from google.appengine.api.urlfetch import fetch
@@ -8,10 +9,9 @@ from google.appengine.api import images
 
 from externals.privatar import privatar
 
+from models import SharedSecret
+
 class AvatarHandler(webapp.RequestHandler):
-    qs = None
-    # privatar_code = None
-    # gravatar_md5  = None
 
     param_renaming = {
         "s" : "size",
@@ -57,22 +57,37 @@ class AvatarHandler(webapp.RequestHandler):
 
         # request the gravatar image and return it (caching as we go)
         gravatar_url = "http://www.gravatar.com/avatar/%s" % gravatar_md5
-        gravatar_url += '?d=404'
+        
+        # add remaining query bits that we should sond to gravatar
+        gravatar_url += '?' + self.gravatar_query_string()
         
         # serve the gravatar url
         self.serve_gravatar_url( gravatar_url )
 
 
+    def gravatar_query_string(self):
+        q =  'default=404'
+        q += '&size=%s' % self.qs['size']
+        if self.qs['rating']:
+            q += '&rating=%s' % self.qs['rating']
+        return q
+
     def get_gravatar_md5(self):
         # extract the privatar code from the url
+        privatar_code = re.findall('/avatar/([^/.]+)', self.request.path)[0]
 
         # get the site_key
+        site_key, first_letter  = privatar.extract_site_key_and_first_letter( privatar_code )
 
         # load the shared_secret dictionary for the site key
-
+        shared_secret = SharedSecret.get_secret_for_site_key_and_number( site_key, first_letter )
+        if not shared_secret:
+            raise Exception( "ERROR - something is wrong with your request" )
+        
         # decrypt md5
+        email_md5 = privatar.extract_email_md5( privatar_code, shared_secret );
 
-        return '00000000000000000000000000000000'
+        return email_md5
 
 
     def serve_gravatar_url( self, gravatar_url ):
