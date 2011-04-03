@@ -1,33 +1,27 @@
 [
     {
-        "msg"       : "just email_md5 - md5(joe@example.com)",
-        "code"      : "testsite-2a9ig6e0-t-3324ca1864fa9ee01f7fdceaa833b4b3",
-        "shared_secrets" : {
-            "t" : "testsharedsecret",
-            "a" : "anothertestsharedsecret"
-        },
-        "site_key"  : "testsite",
-        "email_md5" : "f5b8fb60c6116331da07c65b96a8a1d1"
+        "msg"           : "just email_md5 - md5(joe@example.com)",
+        "code"          : "testsite-2a9ig6e0-t-3324ca1864fa9ee01f7fdceaa833b4b3",
+        "shared_secret" : "testsharedsecret",
+        "site_key"      : "testsite",
+        "first_letter"  : "t",
+        "email_md5"     : "f5b8fb60c6116331da07c65b96a8a1d1"
     },
     {
-        "msg"       : "just email_md5 - md5(joe@example.com)",
-        "code"      : "testsite-3r38943p-a-e867725e89025f07849669ee40b53dc4",
-        "shared_secrets" : {
-            "t" : "testsharedsecret",
-            "a" : "anothertestsharedsecret"
-        },
-        "site_key"  : "testsite",
-        "email_md5" : "f5b8fb60c6116331da07c65b96a8a1d1"
+        "msg"           : "just email_md5 - md5(joe@example.com)",
+        "code"          : "testsite-3r38943p-a-e867725e89025f07849669ee40b53dc4",
+        "shared_secret" : "anothertestsharedsecret",
+        "site_key"      : "testsite",
+        "first_letter"  : "a",
+        "email_md5"     : "f5b8fb60c6116331da07c65b96a8a1d1"
     },
     {
-        "msg"       : "email_md5 and a provided salt",
-        "code"      : "testsite-testsalt-t-43d96f02151add0ad675f9b5d064811a",
-        "shared_secrets" : {
-            "t" : "testsharedsecret",
-            "a" : "anothertestsharedsecret"
-        },
-        "site_key"  : "testsite",
-        "salt"      : "testsalt",
-        "email_md5" : "f5b8fb60c6116331da07c65b96a8a1d1"
+        "msg"           : "email_md5 and a provided salt",
+        "code"          : "testsite-testsalt-t-43d96f02151add0ad675f9b5d064811a",
+        "shared_secret" : "testsharedsecret",
+        "site_key"      : "testsite",
+        "first_letter"  : "t",
+        "salt"          : "testsalt",
+        "email_md5"     : "f5b8fb60c6116331da07c65b96a8a1d1"
     }
 ]
