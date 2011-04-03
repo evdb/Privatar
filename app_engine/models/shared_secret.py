@@ -47,12 +47,10 @@ class SharedSecret(db.Model):
         
     @classmethod
     def get_secret_for_site_key( cls, site_key ):
-        logging.debug(['in get_secret_for_site_key', site_key])
         return cls.get_secret_for_site_key_and_number( site_key, 1 )
     
     @classmethod
     def get_secret_for_site_key_and_number( cls, site_key, number ):
-        logging.debug(['in get_secret_for_site_key_and_number', site_key, number])        
         shared = cls.all().filter('site_key =', site_key).filter('number =', int(number)).get()
         if not shared: return None
         return shared.secret

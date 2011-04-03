@@ -25,7 +25,6 @@ class Site(db.Model):
     @classmethod
     def is_key_valid( cls, key ):
         if re.match( '[a-z][a-z0-9\_]{5,19}$', key ):
-            logging.debug( "key '%s' is valid " % key )
             return True
         else:
             return False
