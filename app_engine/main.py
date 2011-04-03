@@ -3,15 +3,13 @@
 import os
 import logging
 
-from google.appengine.ext import webapp
-from google.appengine.ext.webapp import util
-
 from google.appengine.dist import use_library
 use_library('django', '1.2')
 
-from handlers.index  import IndexHandler
-from handlers.avatar import AvatarHandler
-from handlers.site   import SiteHandler
+from google.appengine.ext import webapp
+from google.appengine.ext.webapp import util
+
+from handlers import IndexHandler, AvatarHandler, SiteHandler
 
 # Load custom Django template filters
 webapp.template.register_template_library('templates.customfilters')

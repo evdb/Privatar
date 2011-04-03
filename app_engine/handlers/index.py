@@ -6,24 +6,18 @@ from google.appengine.ext.webapp import template
 
 import main
 
+from handlers import BaseHandler
+
 allowed_paths = ['index', 'about', 'samples']
 
-class IndexHandler(webapp.RequestHandler):
-    def get(self):
-        
+class IndexHandler(BaseHandler):
+    def dispatcher(self):
+
         # get the path and see if it can be made to match a template
         request_path  = self.request.path[1:] or 'index'
-        template_path = 'templates/' + request_path + '.html'
+        template_path = request_path + '.html'
 
         if request_path not in allowed_paths:
             return self.error(404)
-                
-        if not os.path.exists(template_path):
-            return self.error(404)
 
-        self.response.out.write(
-            template.render( 
-                template_path,
-                {}
-            )
-        )
+        self.template_path = template_path

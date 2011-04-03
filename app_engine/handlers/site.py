@@ -6,51 +6,24 @@ from google.appengine.ext        import webapp
 from google.appengine.ext.webapp import template
 from google.appengine.api        import users
 
+from handlers import BaseHandler
 from models import Person, Site, SharedSecret
 
-class SiteHandler(webapp.RequestHandler):
-    def __init__(self):
-        super(SiteHandler, self).__init__()
-        self.vars          = {}
-        self.template_path = 'you_need_to_set_template_path'
-
-        user = users.get_current_user()
-        if user:
-            self.person = Person.from_user(user)
-            self.vars["person"] = self.person
-            self.vars["logout_url"] = users.create_logout_url('/')
-
-    def post(self, site_key):
-        self.get(site_key)
-        
-    def get(self, site_key):
-                
-        # dispatch
+class SiteHandler(BaseHandler):
+    def dispatcher(self, site_key):
         if   site_key == ''    : self.list_sites()
         elif site_key == 'add' : self.add_site()
         else                   : self.show_site(site_key)
-        
-        if self.response.status == 200:
-    
-            # logging.debug( self.vars)
-    
-            # render template
-            self.response.out.write(
-                template.render( 
-                    self.template_path,
-                    self.vars
-                )
-            )
 
     def list_sites(self):
-        self.template_path = 'templates/site_list.html'
+        self.template_path = 'site_list.html'
 
         # find all matching sites
         sites = self.person.site_set.fetch(100)
         self.vars["sites"] = sites
     
     def add_site(self):
-        self.template_path = 'templates/site_add.html'
+        self.template_path = 'site_add.html'
         
         # get the site key
         site_key = self.request.get('site_key').strip()
@@ -80,7 +53,7 @@ class SiteHandler(webapp.RequestHandler):
         self.redirect('/site/' + site_key )
         
     def show_site(self, site_key):
-        self.template_path = 'templates/site_show.html'
+        self.template_path = 'site_show.html'
 
         site = self.person.site_set.filter( 'site_key =', site_key).get()
         
