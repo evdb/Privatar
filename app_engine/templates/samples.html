@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+
+{% block title %}Sample images{% endblock %}
+
+
+{% block content %}
+    
+        <style type="text/css" media="screen">
+            * {
+                margin: 0;
+                padding: 0;
+                border: 0;
+            }
+
+            div.sample {
+                border: 1px solid #888;
+                background-color: #ddd;
+                margin: 4px;
+                padding: 4px;
+            }
+            
+            div.sample img {
+                margin-right: 4px;
+            }
+        </style>
+
+        <h1>Sample images</h1>
+
+        <h2>bare miss and bare hit</h2>
+
+        <div class="sample">
+            <img src="http://www.gravatar.com/avatar/00000000000000000000000000000000">
+            <img src="{{ '00000000000000000000000000000000'|privatar_url_from_md5 }}">
+        </div>
+
+        <div class="sample">
+            <img src="http://www.gravatar.com/avatar/5d31322228e56596272ff389e86eaaa1">
+            <img src="{{ '5d31322228e56596272ff389e86eaaa1'|privatar_url_from_md5 }}">
+        </div>
+
+        <h2>specify default</h2>
+
+        <div class="sample">
+            <img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=identicon">
+            <img src="{{ '00000000000000000000000000000000'|privatar_url_from_md5 }}?d=identicon">
+        </div>
+
+        <div class="sample">
+            <img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm">
+            <img src="{{ '00000000000000000000000000000000'|privatar_url_from_md5 }}?d=mm">
+        </div>
+
+        <div class="sample">
+            <img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=404">
+            <img src="{{ '00000000000000000000000000000000'|privatar_url_from_md5 }}?d=404">
+        </div>
+
+        <h2>add '.jpg' suffix</h2>
+
+        <div class="sample">
+            <img src="http://www.gravatar.com/avatar/5d31322228e56596272ff389e86eaaa1.jpg">
+            <img src="{{ '5d31322228e56596272ff389e86eaaa1'|privatar_url_from_md5 }}.jpg">
+        </div>
+
+        <h2>hit with size</h2>
+
+        <div class="sample">
+            <img src="http://www.gravatar.com/avatar/5d31322228e56596272ff389e86eaaa1?s=32">
+            <img src="{{ '5d31322228e56596272ff389e86eaaa1'|privatar_url_from_md5 }}?s=32">
+        </div>
+
+        <h2>specify size</h2>
+
+        <div class="sample">
+            <img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?s=-100">
+            <img src="{{ '00000000000000000000000000000000'|privatar_url_from_md5 }}?s=-100">
+        </div>
+
+        <div class="sample">
+            <img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?s=0">
+            <img src="{{ '00000000000000000000000000000000'|privatar_url_from_md5 }}?s=0">
+        </div>
+
+        <div class="sample">
+            <img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?s=32">
+            <img src="{{ '00000000000000000000000000000000'|privatar_url_from_md5 }}?s=32">
+        </div>
+
+        <div class="sample">
+            <img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?s=128">
+            <img src="{{ '00000000000000000000000000000000'|privatar_url_from_md5 }}?s=128">
+        </div>
+
+        <div class="sample">
+            <img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?s=1000">
+            <img src="{{ '00000000000000000000000000000000'|privatar_url_from_md5 }}?s=1000">
+        </div>
+
+        <div class="sample">
+            <img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?s=foo">
+            <img src="{{ '00000000000000000000000000000000'|privatar_url_from_md5 }}?s=foo">
+        </div>
+
+        <br/>
+
+{% endblock %}
+
+
+

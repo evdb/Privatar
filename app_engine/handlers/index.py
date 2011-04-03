@@ -6,7 +6,7 @@ from google.appengine.ext.webapp import template
 
 import main
 
-allowed_paths = ['index', 'about']
+allowed_paths = ['index', 'about', 'samples']
 
 class IndexHandler(webapp.RequestHandler):
     def get(self):
