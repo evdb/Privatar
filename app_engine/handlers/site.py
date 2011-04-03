@@ -6,7 +6,7 @@ from google.appengine.ext        import webapp
 from google.appengine.ext.webapp import template
 from google.appengine.api        import users
 
-from models import Person, Site
+from models import Person, Site, SharedSecret
 
 class SiteHandler(webapp.RequestHandler):
     def __init__(self):
@@ -72,7 +72,11 @@ class SiteHandler(webapp.RequestHandler):
         
         # ok to create
         site = Site( site_key=site_key, owner=self.person )
-        site.put()        
+        site.put()
+        
+        # create the first shared secret
+        SharedSecret.new_for_site( site )
+        
         self.redirect('/site/' + site_key )
         
     def show_site(self, site_key):
@@ -83,7 +87,7 @@ class SiteHandler(webapp.RequestHandler):
         if not site:
             return self.error(404)
 
-        logging.debug( site )
-        self.vars['site'] = site
+        self.vars['site']    = site
+        self.vars['secrets'] = site.shared_secret_set.order('created').fetch(10)
         
         

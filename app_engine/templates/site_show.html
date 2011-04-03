@@ -6,4 +6,13 @@
 
 {% block content %}
     <h1>{{ site.site_key }}</h1>
+
+    <h2>Secrets</h2>
+
+    <ul>
+        {% for secret in secrets %}
+        <li>{{ secret.number }}: {{ secret.secret }} {{ secret.site_key }}</li>
+        {% endfor %}
+    </ul>
+
 {% endblock %}
