@@ -14,9 +14,4 @@ indexes:
   properties:
   - name: site
   - name: created
-
-- kind: SharedSecret
-  properties:
-  - name: site
-  - name: created
     direction: desc

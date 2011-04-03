@@ -32,7 +32,7 @@ class SiteHandler(webapp.RequestHandler):
         
         if self.response.status == 200:
     
-            logging.debug( self.vars)
+            # logging.debug( self.vars)
     
             # render template
             self.response.out.write(
@@ -88,6 +88,6 @@ class SiteHandler(webapp.RequestHandler):
             return self.error(404)
 
         self.vars['site']    = site
-        self.vars['secrets'] = site.shared_secret_set.order('created').fetch(10)
+        self.vars['secrets'] = site.shared_secret_set.order('-created').fetch(10)
         
         

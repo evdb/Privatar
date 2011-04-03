@@ -44,3 +44,11 @@ class SharedSecret(db.Model):
         new.put()
 
         return new
+        
+    @classmethod
+    def secret_for_site_key( cls, site_key ):
+        latest = cls.all().filter('site_key =', site_key).filter('number =', 1).get()
+        if not latest: return None
+        return latest.secret
+    
+    
