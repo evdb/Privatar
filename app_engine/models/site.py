@@ -2,6 +2,7 @@ import logging
 import re
 
 from google.appengine.ext import db
+from models import Person
 
 class SiteKeyNotValid(Exception):
     pass
@@ -18,7 +19,7 @@ def site_key_validator(value):
 
 class Site(db.Model):
     site_key = db.StringProperty(required=True, validator=site_key_validator)
-    owner    = db.UserProperty(auto_current_user_add=True)
+    owner    = db.ReferenceProperty(reference_class=Person, required=True)
     created  = db.DateTimeProperty(auto_now_add=True)
 
     @classmethod

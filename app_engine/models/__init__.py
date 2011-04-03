@@ -1,2 +1,3 @@
 """The application models"""
-from site import Site
+from person import Person
+from site   import Site
