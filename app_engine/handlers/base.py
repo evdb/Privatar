@@ -9,10 +9,14 @@ from google.appengine.api        import users
 from models import Person, Site, SharedSecret
 
 class BaseHandler(webapp.RequestHandler):
+    on_dev_server_bool = None;
+
     def __init__(self):
         super(BaseHandler, self).__init__()
 
-        self.vars          = {}
+        self.vars          = {
+            'on_dev_server': self.on_dev_server(),
+        }
         self.template_path = 'you_need_to_set_template_path'
 
         user = users.get_current_user()
@@ -40,3 +44,14 @@ class BaseHandler(webapp.RequestHandler):
                     self.vars
                 )
             )
+
+    @classmethod
+    def on_dev_server(cls):
+        """determine if this is the dev server or not"""
+        if cls.on_dev_server_bool is None:
+            try:
+                cls.on_dev_server_bool = os.environ['SERVER_SOFTWARE'].startswith('Dev')
+            except:
+                cls.on_dev_server_bool = False
+        return cls.on_dev_server_bool
+
