@@ -76,11 +76,11 @@ class AvatarHandler(webapp.RequestHandler):
         # extract the privatar code from the url
         privatar_code = re.findall('/avatar/([^/.]+)', self.request.path)[0]
 
-        # get the site_key
-        site_key, first_letter  = privatar.extract_site_key_and_first_letter( privatar_code )
+        # get the site_code
+        site_code, first_letter  = privatar.extract_site_code_and_first_letter( privatar_code )
 
         # load the shared_secret dictionary for the site key
-        shared_secret = SharedSecret.get_secret_for_site_key_and_number( site_key, first_letter )
+        shared_secret = SharedSecret.get_secret_for_site_code_and_number( site_code, first_letter )
         if not shared_secret:
             raise Exception( "ERROR - something is wrong with your request" )
         

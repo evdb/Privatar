@@ -1,6 +1,6 @@
 {
     "config" : {
-        "site_key"      : "testsite",
+        "site_code"      : "testsite",
         "shared_secret" : "testsharedsecret"
     },
     "tests" : [

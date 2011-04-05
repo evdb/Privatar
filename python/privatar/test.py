@@ -32,7 +32,7 @@ class URLCreation(unittest.TestCase):
     def privatar(self):
         if not self._privatar:
             config = self.test_data['config']
-            self._privatar = privatar( site_key=config['site_key'], shared_secret=config['shared_secret'] )
+            self._privatar = privatar( site_code=config['site_code'], shared_secret=config['shared_secret'] )
         return self._privatar
      
 
@@ -58,8 +58,8 @@ class Decrypt(unittest.TestCase):
         """test that privatar codes can be decrypted"""
         for test in self.test_data:
             
-            site_key, first_letter  = privatar.extract_site_key_and_first_letter( test['code'] );
-            self.assertEqual( site_key,     test['site_key']     )                    
+            site_code, first_letter  = privatar.extract_site_code_and_first_letter( test['code'] );
+            self.assertEqual( site_code,     test['site_code']     )                    
             self.assertEqual( first_letter, test['first_letter'] )                    
 
             email_md5 = privatar.extract_email_md5( test['code'], test['shared_secret'] );

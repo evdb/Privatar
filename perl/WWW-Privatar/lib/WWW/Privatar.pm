@@ -23,7 +23,7 @@ WWW::Privatar - generate urls for the privacy enhancing Gravatar proxy
     $privatar = WWW::Privatar->new({
 
         # required arguments
-        site_key      => 'yoursitecode',
+        site_code      => 'yoursitecode',
         shared_secret => 'xxx',
         
         # optional args
@@ -34,7 +34,7 @@ WWW::Privatar - generate urls for the privacy enhancing Gravatar proxy
         https_base => 'https://secure.yourprivitar.com',
     });
 
-Create a new privatar object. Pass in C<site_key> and C<shared_secret> to set
+Create a new privatar object. Pass in C<site_code> and C<shared_secret> to set
 these for future method calls.
 
 =cut
@@ -50,7 +50,7 @@ sub new {
         %$args
     };
 
-    for ( 'site_key', 'shared_secret', ) {
+    for ( 'site_code', 'shared_secret', ) {
         croak "Required parameter '$_' missing" if !$self->{$_};
     }
 
@@ -60,7 +60,7 @@ sub new {
 sub http_base     { $_[0]->{http_base} }
 sub https_base    { $_[0]->{https_base} }
 sub suffix        { $_[0]->{suffix} }
-sub site_key      { $_[0]->{site_key} }
+sub site_code      { $_[0]->{site_code} }
 sub shared_secret { $_[0]->{shared_secret} }
 
 =head2 url
@@ -152,7 +152,7 @@ sub generate_privatar_code {
     my $first_letter = substr $self->shared_secret, 0, 1;
 
     # return the avatar code
-    return join '-', $self->site_key, $salt, $first_letter, $encrypted_md5;
+    return join '-', $self->site_code, $salt, $first_letter, $encrypted_md5;
 }
 
 =head2 generate_salt
@@ -163,7 +163,7 @@ Generate the salt for this C<email_md5>.
 
 The salt is something unique to each email on the site and is used to prevent
 replay attacks. It also needs to be anonymous so it is created by md5ing the
-C<site_key>, the C<shared_secret> and the C<email_md5> and then shortening the
+C<site_code>, the C<shared_secret> and the C<email_md5> and then shortening the
 result to an 8 character base36 string.
 
 =cut

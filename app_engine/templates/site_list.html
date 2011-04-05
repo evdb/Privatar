@@ -9,7 +9,7 @@
 <h1>Your sites</h1>
 
 {% for site in sites %}
-    <a href="/site/{{ site.site_key }}">{{ site.site_key }}</a>
+    <a href="/site/{{ site.site_code }}">{{ site.site_code }}</a>
 {% empty %}
     You have no sites - you should <a href="/site/add">create one</a>
 {% endfor %}

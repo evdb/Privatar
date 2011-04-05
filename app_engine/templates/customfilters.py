@@ -11,7 +11,7 @@ def get_privatar():
     global CACHED_PRIVATAR        
     if not CACHED_PRIVATAR:
         # load the secret or return if there is none
-        secret = SharedSecret.get_secret_for_site_key('privatar')
+        secret = SharedSecret.get_secret_for_site_code('privatar')
         if not secret: return None
 
         # create the privatar object and cache it

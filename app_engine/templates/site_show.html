@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 
 
-{% block title %}{{ site.site_key }}{% endblock %}
+{% block title %}{{ site.site_code }}{% endblock %}
 
 
 {% block content %}
-    <h1>{{ site.site_key }}</h1>
+    <h1>{{ site.site_code }}</h1>
 
     <h2>Secrets</h2>
 
     <ul>
         {% for secret in secrets %}
-        <li>{{ secret.number }}: {{ secret.secret }} {{ secret.site_key }}</li>
+        <li>{{ secret.number }}: {{ secret.secret }} {{ secret.site_code }}</li>
         {% endfor %}
     </ul>
 

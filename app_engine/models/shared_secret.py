@@ -9,7 +9,7 @@ from models import Site
 
 class SharedSecret(db.Model):
     site         = db.ReferenceProperty(reference_class=Site, required=True, collection_name='shared_secret_set' )
-    site_key     = db.StringProperty(required=True)
+    site_code    = db.StringProperty(required=True)
     number       = db.IntegerProperty(required=True)
     secret       = db.StringProperty(required=True)
     created      = db.DateTimeProperty(auto_now_add=True)
@@ -37,7 +37,7 @@ class SharedSecret(db.Model):
         # create a new shared secret
         new = cls(
             site = site,
-            site_key=site.site_key,
+            site_code=site.site_code,
             number=number,
             secret=secret
         )
@@ -46,12 +46,12 @@ class SharedSecret(db.Model):
         return new
         
     @classmethod
-    def get_secret_for_site_key( cls, site_key ):
-        return cls.get_secret_for_site_key_and_number( site_key, 1 )
+    def get_secret_for_site_code( cls, site_code ):
+        return cls.get_secret_for_site_code_and_number( site_code, 1 )
     
     @classmethod
-    def get_secret_for_site_key_and_number( cls, site_key, number ):
-        shared = cls.all().filter('site_key =', site_key).filter('number =', int(number)).get()
+    def get_secret_for_site_code_and_number( cls, site_code, number ):
+        shared = cls.all().filter('site_code =', site_code).filter('number =', int(number)).get()
         if not shared: return None
         return shared.secret
         
