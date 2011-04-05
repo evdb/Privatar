@@ -77,20 +77,20 @@ class privatar():
         encrypted_md5 = self.xor_md5s( email_md5, one_time_pad )
         
         # get the first letter of the shared_secret
-        first_letter = self.shared_secret[:1]
+        number = self.shared_secret[:1]
         
-        return '-'.join( [ self.site_code, salt, first_letter, encrypted_md5 ] )
+        return '-'.join( [ self.site_code, salt, number, encrypted_md5 ] )
 
 
     @classmethod
-    def extract_site_code_and_first_letter( cls, code ):
-        site_code, salt, first_letter, encrypted_md5 = code.split('-')
-        return site_code, first_letter;
+    def extract_site_code_and_number( cls, code ):
+        site_code, salt, number, encrypted_md5 = code.split('-')
+        return site_code, number;
 
 
     @classmethod
     def extract_email_md5( cls, code, shared_secret ):
-        site_code, salt, first_letter, encrypted_md5 = code.split('-')
+        site_code, salt, number, encrypted_md5 = code.split('-')
         one_time_pad = cls.md5( salt, shared_secret )        
         return cls.xor_md5s( encrypted_md5, one_time_pad );
 
