@@ -24,6 +24,8 @@ class BaseHandler(webapp.RequestHandler):
             self.person = Person.from_user(user)
             self.vars["person"] = self.person
             self.vars["logout_url"] = users.create_logout_url('/')
+        else:
+            self.vars["login_url"] = users.create_login_url('/')
 
     def post(self, *args, **kwargs):
         self.get(*args, **kwargs)

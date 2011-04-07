@@ -1,36 +1,50 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html>
     <head>
+        <meta content='text/html; charset=utf-8' http-equiv='Content-Type' /> 
+        <link href="/static/reset.css" media="all" rel="stylesheet" type="text/css"/>
+        <link href="/static/main.css"  media="all" rel="stylesheet" type="text/css"/> 
         <title>{% block title %}{% endblock %} :: Privatar</title>
     </head>
     <body>
 
-        <div id="header">
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/site/">Create Privatar urls</a></li>
+        <div id="outer-wrapper">
 
+            <div id="login-status">
                 {% if person %}
-                    <li>
-                        <img src="{{ person.email|privatar_url_from_email }}?s=16" height="16" width="16">
-                        {{ person.email }}
-                        (<a href="{{ logout_url }}">log out</a>)
-                    </li>
-                {% endif %}
+                    <img src="{{ person.email|privatar_url_from_email }}?s=16" height="16" width="16">
+                    {{ person.email }}
+                    (<a href="{{ logout_url }}">log out</a>)
+                {% else %}    
+                    <a href="{{ login_url }}">log in</a>
+                {% endif %}    
+            </div>
 
-            </ul>
-            <hr/>
+            <div id="inner-wrapper">
+                
+                <div id="header" class="divider">
+                    <a id="logo" href="/"><img src="/static/logo.png" height="80" width="80"></a>
+                    <h1>Privatar</h1>
+                    <h2>The Privacy Enhancing Gravatar Proxy</h2>
+                </div>
+                
+                <div id="content" class="divider">
+                    {% block content %}REPLACE ME{% endblock %}
+                </div>
+                
+                <div id="footer">
+                    <div class="copyright">
+                        &copy; 2011 <a href="http://www.privatar.org">privatar.org</a>
+                    </div>
+                    <ul>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/site/">Create Privatar urls</a></li>
+                    </ul>
+                </div>
+                
+            </div>
         </div>
-
-        <div id="content">
-            {% block content %}REPLACE ME{% endblock %}
-        </div>
-
-        <div id="footer">
-            <hr/>
-        </div>
-
+    
         {% if not on_dev_server %}
         <script type="text/javascript">
 
