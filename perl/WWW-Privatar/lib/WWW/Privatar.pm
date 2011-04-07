@@ -60,7 +60,7 @@ sub new {
 sub http_base     { $_[0]->{http_base} }
 sub https_base    { $_[0]->{https_base} }
 sub suffix        { $_[0]->{suffix} }
-sub site_code      { $_[0]->{site_code} }
+sub site_code     { $_[0]->{site_code} }
 sub shared_secret { $_[0]->{shared_secret} }
 
 =head2 url
@@ -148,11 +148,12 @@ sub generate_privatar_code {
     # encrypt the email_md5
     my $encrypted_md5 = $self->xor_md5s( $email_md5, $one_time_pad );
 
-    # get the first letter of the shared_secret
-    my $number = substr $self->shared_secret, 0, 1;
+    # get the version of the shared_secret
+    my ($version) = $self->shared_secret =~ m{^(\d+)};
+    $version ||= 0;
 
     # return the avatar code
-    return join '-', $self->site_code, $salt, $number, $encrypted_md5;
+    return join '-', $self->site_code, $version, $salt, $encrypted_md5;
 }
 
 =head2 generate_salt

@@ -1,5 +1,7 @@
-from Crypto.Hash import MD5
+import re
 import urllib
+
+from Crypto.Hash import MD5
 
 class privatar():
     http_base  = 'http://www.privatar.org'
@@ -7,7 +9,7 @@ class privatar():
 
 
     def __init__(self, site_code, shared_secret):
-        self.site_code      = site_code
+        self.site_code     = site_code
         self.shared_secret = shared_secret    
 
 
@@ -77,20 +79,23 @@ class privatar():
         encrypted_md5 = self.xor_md5s( email_md5, one_time_pad )
         
         # get the first letter of the shared_secret
-        number = self.shared_secret[:1]
-        
-        return '-'.join( [ self.site_code, salt, number, encrypted_md5 ] )
+        try:
+            version = re.match( '(\d+)', self.shared_secret ).group(1)
+        except IndexError:
+            version = 0
+
+        return '-'.join( [ self.site_code, str(version), salt, encrypted_md5 ] )
 
 
     @classmethod
-    def extract_site_code_and_number( cls, code ):
-        site_code, salt, number, encrypted_md5 = code.split('-')
-        return site_code, number;
+    def extract_site_code_and_version( cls, code ):
+        site_code, version, salt, encrypted_md5 = code.split('-')
+        return site_code, version;
 
 
     @classmethod
     def extract_email_md5( cls, code, shared_secret ):
-        site_code, salt, number, encrypted_md5 = code.split('-')
+        site_code, version, salt, encrypted_md5 = code.split('-')
         one_time_pad = cls.md5( salt, shared_secret )        
         return cls.xor_md5s( encrypted_md5, one_time_pad );
 

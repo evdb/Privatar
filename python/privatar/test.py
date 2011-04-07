@@ -58,9 +58,9 @@ class Decrypt(unittest.TestCase):
         """test that privatar codes can be decrypted"""
         for test in self.test_data:
             
-            site_code, number  = privatar.extract_site_code_and_number( test['code'] );
-            self.assertEqual( site_code,     test['site_code']     )                    
-            self.assertEqual( number, test['number'] )                    
+            site_code, version  = privatar.extract_site_code_and_version( test['code'] );
+            self.assertEqual( site_code, test['site_code']     )                    
+            self.assertEqual( version,   test['version'] )                    
 
             email_md5 = privatar.extract_email_md5( test['code'], test['shared_secret'] );
             self.assertEqual( email_md5, test['email_md5'] )                    
