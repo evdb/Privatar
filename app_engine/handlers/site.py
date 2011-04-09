@@ -60,7 +60,10 @@ class SiteHandler(BaseHandler):
         if not site:
             return self.error(404)
 
-        self.vars['site']    = site
-        self.vars['secrets'] = site.shared_secret_set.order('-created').fetch(10)
+        secrets = site.shared_secret_set.order('-created').fetch(100)
+
+        self.vars['site']           = site
+        self.vars['secrets']        = secrets
+        self.vars['current_secret'] = secrets[0]
         
         

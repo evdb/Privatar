@@ -17,13 +17,16 @@ h1 {
 h2 {
   font-size: 24px; }
 
+h3 {
+  font-size: 20px; }
+
 strong {
   font-weight: bold; }
 
 p, pre {
   margin-bottom: 1em; }
 
-pre {
+pre, code {
   font-family: monospace; }
 
 #outer-wrapper {
@@ -115,3 +118,23 @@ pre {
 
 .divider {
   margin-bottom: 1px solid #bd6dfa; }
+
+pre.shared_secret {
+  border: 1px solid #ccc;
+  background-color: #eee;
+  text-align: center;
+  padding: 1em 0;
+  font-size: 150%; }
+
+table {
+  border: 1px solid #ccc;
+  background-color: #eee; }
+  table th, table td {
+    text-align: left;
+    padding: 0.2em; }
+  table th {
+    font-weight: bold; }
+  table td {
+    border-top: 1px solid #ddd; }
+  table td.shared_secret, table td.version {
+    font-family: monospace; }

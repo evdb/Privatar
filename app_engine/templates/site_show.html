@@ -5,14 +5,77 @@
 
 
 {% block content %}
-    <h1>{{ site.site_code }}</h1>
+    <h1>Details for '{{ site.site_code }}'</h1>
 
-    <h2>Secrets</h2>
+    <h2>The Shared Secret</h2>
 
-    <ul>
-        {% for secret in secrets %}
-        <li>{{ secret.version }}: {{ secret.secret }} {{ secret.site_code }}</li>
-        {% endfor %}
-    </ul>
+    <pre class="shared_secret">{{ current_secret.secret }}</pre>
+
+    <p>This is the most recent shared secret generated for this site. You should
+    make sure it is kept secret and if it is revealed you should generate a new
+    one.</p>
+    
+    
+    <h2>Sample Code</h2>
+
+    <p>Please use one of the following samples to get started quickly:</p>
+
+    <h3>Perl</h3>
+
+    <pre><code>
+  use WWW::Privatar;
+  
+  # create a privatar object for this site
+  my $privatar = WWW::Privatar->new({
+      site_code     => '{{ site.site_code }}',
+      shared_secret => '{{ current_secret.secret }}',
+  });
+  
+  # create a privatar url for an email address
+  my $url = $privatar->url({ email => 'joe@example.com' });
+</code></pre>
+
+    <p>The <code>WWW::Privatar</code> module can be found on
+    <a href="http://search.cpan.org/dist/WWW-Privatar">CPAN</a></p>
+    
+    <h3>Python</h3>
+
+    <pre><code>
+  import privatar
+
+  priv = privatar(
+    site_code='{{ site.site_code }}',
+    shared_secret='{{ current_secret.secret }}',
+  )
+  
+  url = priv.url( email='joe@example.com' )
+
+</code></pre>
+    
+    <h2>All Shared Secrets</h2>
+
+    <p>It is possible to have several shared secrets for a site to make it
+    easier to move from an old one to a new one gradually. Ideally the older
+    ones should no longer be in use, but may be required for cached or otherwise
+    saved content.</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th class="version">version</th>
+                <th class="shared_secret">shared secret</th>
+                <th class="date">date created</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for secret in secrets %}
+            <tr>
+                <td class="version">{{ secret.version }}</td>
+                <td class="shared_secret">{{ secret.secret }}</td>
+                <td class="date">{{ secret.created }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
 {% endblock %}
