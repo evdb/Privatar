@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+
+{% block title %}About{% endblock %}
+
+
+{% block content %} <h1>About Gravatar</h1>
+
+    <p><a href="http://www.gravatar.com">Gravatar</a> is a web service that
+    allows websites to show little images that represent their users. These
+    images are either user submitted or computer generated.</p>
+
+    <h2>How Gravatar works</h2>
+
+    <p>To load an image for a user you take their email address and convert it
+    into an <a href="http://en.wikipedia.org/wiki/Md5">MD5 hash</a>:</p>
+
+    <pre><code>  email: joe@example.com
+    md5: f5b8fb60c6116331da07c65b96a8a1d1</code></pre>
+  
+  
+
+    <h2>Gravatar privacy issues</h2>
+
+    <p>Although it is not possible to turn an md5 back into an email address there
+    are two privacy leaks:</p>
+
+    <p><strong>Confirm guessed email address:</strong> You can use the md5 in a
+    Gravatar image to confirm if it belongs to an email address. </p>
+
+    <p><strong>Link accounts across sites:</strong> If the Gravatar md5 for two
+    accounts on different sites are the same they belong to the same email
+    address. This allows you to find all the accounts that an email has on sites
+    that use Gravatar images.</p>
+
+{% endblock %}

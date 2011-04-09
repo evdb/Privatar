@@ -32,7 +32,9 @@ class SharedSecret(db.Model):
         
         choices = string.ascii_letters + string.digits
         length = 80
-        secret = str(version) + ''.join( random.choice(choices) for i in range( length - 1) )
+        secret = str(version)
+        secret += random.choice(string.ascii_letters)
+        secret += ''.join( random.choice(choices) for i in range( length - len(secret) ) )
 
         # create a new shared secret
         new = cls(
