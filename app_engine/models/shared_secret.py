@@ -31,9 +31,9 @@ class SharedSecret(db.Model):
         if existing: existing.delete()
         
         choices = string.ascii_letters + string.digits
-        length = 80
+        length = 40
         secret = str(version)
-        secret += random.choice(string.ascii_letters)
+        secret += 'a'
         secret += ''.join( random.choice(choices) for i in range( length - len(secret) ) )
 
         # create a new shared secret
