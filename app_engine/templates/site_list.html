@@ -8,11 +8,16 @@
 
 <h1>Your sites</h1>
 
-{% for site in sites %}
-    <a href="/site/{{ site.site_code }}">{{ site.site_code }}</a>
-{% empty %}
-    You have no sites - you should <a href="/site/add">create one</a>
-{% endfor %}
+<p>These are all of your sites:</p>
 
+<ul>
+    {% for site in sites %}
+        <li><a href="/site/{{ site.site_code }}">{{ site.site_code }}</a></li>
+    {% empty %}
+        <li>You have no sites - you should <a href="/site/add">create one</a><li>
+    {% endfor %}
+</ul>
+
+<p>You can <a href="/site/add">create another</a> if needed.</p>
 
 {% endblock %}

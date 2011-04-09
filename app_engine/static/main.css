@@ -23,7 +23,7 @@ h3 {
 strong {
   font-weight: bold; }
 
-p, pre {
+p, pre, ul {
   margin-bottom: 1em; }
 
 pre, code {
