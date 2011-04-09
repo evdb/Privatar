@@ -8,7 +8,7 @@ import main
 
 from handlers import BaseHandler
 
-allowed_paths = ['index', 'about', 'samples', 'gravatar']
+allowed_paths = ['index', 'about', 'samples', 'gravatar', 'how' ]
 
 class IndexHandler(BaseHandler):
     def dispatcher(self):

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+
+{% block title %}How Privatar Works{% endblock %}
+
+
+{% block content %}
+
+<h1>How Privatar Works</h1>
+
+<h2>First - how Gravatar works</h2>
+
+<p>Privatar is just a <a href="http://www.gravatar.com">Gravatar</a> proxy, so
+you need to understand Gravatar first.</p>
+
+<p>Gravatar is a service that allows you to request an image that has ben
+associated with and email address. To prevent the email address being in plain
+text its MD5 hash is used in the URL:</p>
+
+<pre><code class="no-highlight">email: test@example.com
+md5:   55502f40dc8b7c769880b10874abc9d0
+url:   http://www.gravatar.com/avatar/55502f40dc8b7c769880b10874abc9d0</code></pre>
+
+
+<h2>Privatar URLs</h2>
+
+<p>Privatar has a url structure that is very similar to the Gravatar one:</p>
+
+<pre><code class="no-highlight">url:   http://www.privatar.org/avatar/&lt;&lt;privatar code&gt;&gt;</code></pre>
+
+<p>The difference is that the Privatar code is more complicated than just an MD5
+of the email address.</p>
+
+
+<h2>The Privatar code</h2>
+
+<p>The code is made up of four parts. It is as simple as possible whilst still ensuring privacy. This is an example:</p>
+
+<pre><code class="no-highlight">code:  mysite-1-17hsqqpq-34fd7b65fe96a5eb9a7dd4494dcdb0ae
+parts: site_code - version - salt - encrypted md5</code></pre>
+
+
+<h3>Site code</h3>
+
+<p>Each site that wants to use Privatar needs to register to get a site code and
+a shared secret. This site code is then embedded in the Privatar code.</p>
+
+<h3>Version</h3>
+
+<p>To make managing the shared secrets easier there can be several attached to a
+site code. Each one has its own version number - which is also embedded in the
+Privatar code. By extracting the site code and the version the correct shared
+secret can be found to decrypt the encrypted MD5.</p>
+
+
+<h3>Salt</h3>
+
+<p>To prevent certain attacks there needs to be a 'salt' used when doin the
+encryption. This salt must be unique to the user but should not disclose any
+information. Sites can provide their own salt, or (probably better) one can be
+constructed for them using the email MD5 as a starting point.</p>
+
+
+<h3>Encrypted MD5</h3>
+
+<p>This is the email MD5 XORed with an MD5 created from the shared secret and
+the salt. The same MD5 is created on the Privatar server and used to XOR the
+encrypted MD5 back into it's original form. This is then used to request the
+image from Gravatar and the result is returned to the browser.</p>
+
+
+{% endblock %}

@@ -29,6 +29,12 @@ p, pre, ul {
 pre, code {
   font-family: monospace; }
 
+pre {
+  width: 100%;
+  overflow: auto;
+  overflow-y: hidden;
+  -ms-overflow-y: hidden; }
+
 #outer-wrapper {
   max-width: 600px;
   margin: 0 auto;
